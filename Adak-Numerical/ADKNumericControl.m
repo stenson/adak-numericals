@@ -89,7 +89,7 @@
 {
     _scrollNotNativelyGestureInitiated = YES;
     [self setCurrentValue:value];
-    [UIView animateWithDuration:0.25f animations:^{
+    [UIView animateWithDuration:animated ? 0.25f : 0.f animations:^{
         _tableView.contentOffset = CGPointMake(0.f, ([self indexFromValue:value] * _cellHeight));
     } completion:^(BOOL finished) {
         _scrollNotNativelyGestureInitiated = NO;
@@ -145,7 +145,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self setCurrentValue:[_possibleValues[indexPath.row] floatValue] animated:YES];
+    _valueWasUpdatedBlock(_currentValue);
 }
+
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    cell.transform = CGAffineTransformMakeTranslation(20.f, 0.f);
+//}
 
 #pragma mark - UIScrollViewDelegate
 
@@ -156,6 +162,10 @@
         index = MIN(MAX(index, 0), _possibleValues.count - 1);
         self.currentValue = [_possibleValues[index] floatValue];
     }
+    
+//    [[_tableView visibleCells] enumerateObjectsUsingBlock:^(UITableViewCell *cell, NSUInteger i, BOOL *stop) {
+//        cell.textLabel.transform = CGAffineTransformMakeTranslation(i * 2.f, 0.f);
+//    }];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
