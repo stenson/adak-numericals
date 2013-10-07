@@ -29,4 +29,6 @@ typedef void (^ADKNumericControlWasUpdatedBlock)(CGFloat value);
 
 @property (nonatomic) BOOL resetWhenDoubleTapped;
 
+- (void)setCurrentValue:(CGFloat)currentValue animated:(BOOL)animated;
+
 @end

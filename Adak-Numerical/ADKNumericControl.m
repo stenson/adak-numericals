@@ -41,6 +41,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.cellHeight = 44.f;
+        _textColor = [UIColor colorWithWhite:0.5f alpha:1.f];
         
         _tableView = [[UITableView alloc] initWithFrame:frame];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -79,16 +80,20 @@
             _valueWasUpdatedBlock(_currentValue);
         }
         
-        [self updateTextColor:[UIColor redColor] forCellWithValue:_currentValue];
-        [self updateTextColor:[UIColor blackColor] forCellWithValue:previousValue];
+        [self updateTextColor:[UIColor blackColor] forCellWithValue:_currentValue];
+        [self updateTextColor:_textColor forCellWithValue:previousValue];
     }
+}
+
+- (void)setCurrentValue:(CGFloat)currentValue animated:(BOOL)animated
+{
+    [self setCurrentValue:currentValue];
 }
 
 - (void)updateTextColor:(UIColor *)textColor forCellWithValue:(CGFloat)value
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self indexFromValue:value] inSection:0];
     UITableViewCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
-    //NSLog(@"%@", cell);
     cell.textLabel.textColor = textColor;
     [cell.textLabel setNeedsDisplay];
 }
@@ -133,15 +138,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"select");
+    NSLog(@"select %f", [_possibleValues[indexPath.row] floatValue]);
+    _scrollNotNativelyGestureInitiated = YES;
+    self.currentValue = [_possibleValues[indexPath.row] floatValue];
+    [UIView animateWithDuration:0.25f animations:^{
+        _tableView.contentOffset = CGPointMake(0.f, (indexPath.row * _cellHeight));
+    } completion:^(BOOL finished) {
+        _scrollNotNativelyGestureInitiated = NO;
+    }];
 }
 
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSInteger index = roundf(scrollView.contentOffset.y / _cellHeight);
-    if (index >= 0 && index < _possibleValues.count) {
+    if (!_scrollNotNativelyGestureInitiated) {
+        NSInteger index = roundf(scrollView.contentOffset.y / _cellHeight);
+        index = MIN(MAX(index, 0), _possibleValues.count - 1);
         self.currentValue = [_possibleValues[index] floatValue];
     }
 }
