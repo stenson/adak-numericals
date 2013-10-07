@@ -22,6 +22,7 @@
 		98A7EA5918010238009B39E7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A7EA3818010238009B39E7 /* UIKit.framework */; };
 		98A7EA6118010238009B39E7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 98A7EA5F18010238009B39E7 /* InfoPlist.strings */; };
 		98A7EA6318010238009B39E7 /* Adak_NumericalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A7EA6218010238009B39E7 /* Adak_NumericalTests.m */; };
+		98A7EAA1180102DD009B39E7 /* ADKNumericControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A7EAA0180102DD009B39E7 /* ADKNumericControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		98A7EA5E18010238009B39E7 /* Adak-NumericalTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Adak-NumericalTests-Info.plist"; sourceTree = "<group>"; };
 		98A7EA6018010238009B39E7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		98A7EA6218010238009B39E7 /* Adak_NumericalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Adak_NumericalTests.m; sourceTree = "<group>"; };
+		98A7EA9F180102DD009B39E7 /* ADKNumericControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADKNumericControl.h; sourceTree = "<group>"; };
+		98A7EAA0180102DD009B39E7 /* ADKNumericControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADKNumericControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +87,7 @@
 		98A7EA2818010238009B39E7 = {
 			isa = PBXGroup;
 			children = (
+				98A7EA9E1801028C009B39E7 /* AdakNumericalControl */,
 				98A7EA3A18010238009B39E7 /* Adak-Numerical */,
 				98A7EA5C18010238009B39E7 /* Adak-NumericalTests */,
 				98A7EA3318010238009B39E7 /* Frameworks */,
@@ -153,6 +157,16 @@
 				98A7EA5F18010238009B39E7 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		98A7EA9E1801028C009B39E7 /* AdakNumericalControl */ = {
+			isa = PBXGroup;
+			children = (
+				98A7EA9F180102DD009B39E7 /* ADKNumericControl.h */,
+				98A7EAA0180102DD009B39E7 /* ADKNumericControl.m */,
+			);
+			name = AdakNumericalControl;
+			path = "Adak-Numerical";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +270,7 @@
 			files = (
 				98A7EA4E18010238009B39E7 /* ADKViewController.m in Sources */,
 				98A7EA4118010238009B39E7 /* main.m in Sources */,
+				98A7EAA1180102DD009B39E7 /* ADKNumericControl.m in Sources */,
 				98A7EA4518010238009B39E7 /* ADKAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
