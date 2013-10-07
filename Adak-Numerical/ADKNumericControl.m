@@ -85,9 +85,15 @@
     }
 }
 
-- (void)setCurrentValue:(CGFloat)currentValue animated:(BOOL)animated
+- (void)setCurrentValue:(CGFloat)value animated:(BOOL)animated
 {
-    [self setCurrentValue:currentValue];
+    _scrollNotNativelyGestureInitiated = YES;
+    [self setCurrentValue:value];
+    [UIView animateWithDuration:0.25f animations:^{
+        _tableView.contentOffset = CGPointMake(0.f, ([self indexFromValue:value] * _cellHeight));
+    } completion:^(BOOL finished) {
+        _scrollNotNativelyGestureInitiated = NO;
+    }];
 }
 
 - (void)updateTextColor:(UIColor *)textColor forCellWithValue:(CGFloat)value
@@ -138,14 +144,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"select %f", [_possibleValues[indexPath.row] floatValue]);
-    _scrollNotNativelyGestureInitiated = YES;
-    self.currentValue = [_possibleValues[indexPath.row] floatValue];
-    [UIView animateWithDuration:0.25f animations:^{
-        _tableView.contentOffset = CGPointMake(0.f, (indexPath.row * _cellHeight));
-    } completion:^(BOOL finished) {
-        _scrollNotNativelyGestureInitiated = NO;
-    }];
+    [self setCurrentValue:[_possibleValues[indexPath.row] floatValue] animated:YES];
 }
 
 #pragma mark - UIScrollViewDelegate

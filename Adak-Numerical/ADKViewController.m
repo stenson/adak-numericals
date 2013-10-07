@@ -23,19 +23,26 @@
 {
     [super viewDidLoad];
 	
-    _digits = [ADKNumericControl numericControlFromMinimum:1.f toMaximum:10.f increment:1.f numberToString:^NSString *(NSInteger index, CGFloat number) { return [NSString stringWithFormat:@"%.0f", number]; } whenValueUpdates:^(CGFloat value) { NSLog(@"updated %f", value); }];
+    _digits = [ADKNumericControl numericControlFromMinimum:1.f toMaximum:10.f increment:1.f
+                                            numberToString:^NSString *(NSInteger index, CGFloat number) {
+                                                return [NSString stringWithFormat:@"%.0f", number];
+                                            } whenValueUpdates:^(CGFloat value) {
+                                                NSLog(@"updated %f", value);
+                                            }];
     
-    _series = [ADKNumericControl numericControlWithValues:@[@12.5, @31.3, @81] numberToString:^NSString *(NSInteger index, CGFloat number) {
-        return [NSString stringWithFormat:@"%.1f", number];
-    } whenValueUpdates:^(CGFloat number) {
-        NSLog(@"updated %f", number);
-    }];
+    _series = [ADKNumericControl numericControlWithValues:@[@12.5, @31.3, @81]
+                                           numberToString:^NSString *(NSInteger index, CGFloat number) {
+                                               return [NSString stringWithFormat:@"%.1f", number];
+                                           } whenValueUpdates:^(CGFloat number) {
+                                               NSLog(@"updated %f", number);
+                                           }];
     
-    _large = [ADKNumericControl numericControlFromMinimum:-20.f toMaximum:20.f increment:0.75f numberToString:^NSString *(NSInteger index, CGFloat number) {
-        return [NSString stringWithFormat:@"%.2f", number];
-    } whenValueUpdates:^(CGFloat value) {
-        NSLog(@"updated large: %f", value);
-    }];
+    _large = [ADKNumericControl numericControlFromMinimum:-20.f toMaximum:20.f increment:0.75f
+                                           numberToString:^NSString *(NSInteger index, CGFloat number) {
+                                               return [NSString stringWithFormat:@"%.2f", number];
+                                           } whenValueUpdates:^(CGFloat value) {
+                                               NSLog(@"updated large: %f", value);
+                                           }];
     
     _digits.font = [UIFont boldSystemFontOfSize:24.f];
     
